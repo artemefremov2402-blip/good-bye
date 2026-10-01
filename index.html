@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лавандовый сад — салон красоты</title>
+
+  <style>
+    :root {
+      --purple: #74547d;
+      --light-purple: #f3edf4;
+      --cream: #fbf8f3;
+      --text: #302832;
+      --muted: #756e76;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: white;
+    }
+
+    .logo {
+      color: var(--purple);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      color: var(--purple);
+    }
+
+    .hero {
+      min-height: 470px;
+      padding: 80px 8%;
+      display: flex;
+      align-items: center;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(38, 26, 39, .72), rgba(38, 26, 39, .1)),
+        url("https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 560px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 0;
+      border-radius: 30px;
+      padding: 13px 24px;
+      background: var(--purple);
+      color: white;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .button:hover {
+      background: #5e4267;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 64px 8%;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-button {
+      padding: 10px 17px;
+      border: 1px solid #ded3e0;
+      border-radius: 24px;
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .filter-button.active,
+    .filter-button:hover {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: white;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 22px;
+    }
+
+    .service-card {
+      overflow: hidden;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 8px 24px rgba(50, 35, 55, .08);
+    }
+
+    .service-card[hidden] {
+      display: none;
+    }
+
+    .service-card img {
+      display: block;
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 18px;
+    }
+
+    .card-content h3 {
+      margin-bottom: 6px;
+    }
+
+    .card-content p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      color: var(--purple);
+      font-weight: bold;
+    }
+
+    .about {
+      background: var(--light-purple);
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    .contact {
+      text-align: center;
+    }
+
+    .contact p {
+      margin: 8px 0;
+    }
+
+    footer {
+      padding: 22px 8%;
+      background: #302832;
+      color: white;
+      text-align: center;
+    }
+
+    dialog {
+      width: min(420px, calc(100% - 32px));
+      margin: auto;
+      padding: 28px;
+      border: 0;
+      border-radius: 18px;
+      box-shadow: 0 16px 60px rgba(0, 0, 0, .25);
+    }
+
+    dialog::backdrop {
+      background: rgba(20, 15, 22, .55);
+    }
+
+    dialog h2 {
+      margin-bottom: 16px;
+    }
+
+    dialog input,
+    dialog select {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0 14px;
+      border: 1px solid #ddd3df;
+      border-radius: 9px;
+      font: inherit;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .close-button {
+      border: 0;
+      background: transparent;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .hero {
+        min-height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">Лавандовый сад</div>
+    <nav>
+      <a href="#services">Услуги</a>
+      <a href="#about">О салоне</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Время для вашей красоты</h1>
+        <p>Уход, стиль и приятная атмосфера — в одном месте.</p>
+        <button class="button open-booking">Записаться</button>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-heading">
+        <h2>Наши услуги</h2>
+        <p>Выберите направление, чтобы посмотреть услуги</p>
+      </div>
+
+      <div class="filters">
+        <button class="filter-button active" data-filter="all">Все услуги</button>
+        <button class="filter-button" data-filter="nails">Маникюр</button>
+        <button class="filter-button" data-filter="pedicure">Педикюр</button>
+        <button class="filter-button" data-filter="hair">Волосы</button>
+        <button class="filter-button" data-filter="lashes">Ресницы</button>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card" data-category="nails">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=80" alt="Маникюр">
+          <div class="card-content">
+            <h3>Маникюр</h3>
+            <p>Уход за ногтями и аккуратное покрытие.</p>
+            <span class="price">от 1 500 ₽</span>
+          </div>
+        </article>
+
+        <article class="service-card" data-category="pedicure">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=900&q=80" alt="Педикюр">
+          <div class="card-content">
+            <h3>Педикюр</h3>
+            <p>Бережный уход и красивый результат.</p>
+            <span class="price">от 2 000 ₽</span>
+          </div>
+        </article>
+
+        <article class="service-card" data-category="hair">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=80" alt="Окрашивание волос">
+          <div class="card-content">
+            <h3>Окрашивание волос</h3>
+            <p>Подберём оттенок и технику окрашивания.</p>
+            <span class="price">от 4 000 ₽</span>
+          </div>
+        </article>
+
+        <article class="service-card" data-category="hair">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=80" alt="Укладка волос">
+          <div class="card-content">
+            <h3>Укладка волос</h3>
+            <p>Укладка для встречи, праздника или фотосессии.</p>
+            <span class="price">от 2 000 ₽</span>
+          </div>
+        </article>
+
+        <article class="service-card" data-category="lashes">
+          <img src="https://images.unsplash.com/photo-1583001809873-a128495da465?auto=format&fit=crop&w=900&q=80" alt="Наращивание ресниц">
+          <div class="card-content">
+            <h3>Наращивание ресниц</h3>
+            <p>Подберём эффект и изгиб под ваш образ.</p>
+            <span class="price">от 2 500 ₽</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="section-heading">
+        <h2>О нашем салоне</h2>
+      </div>
+      <p>
+        «Лавандовый сад» — место, где можно отдохнуть и уделить время себе.
+        Мы заботимся о комфорте гостей и помогаем подобрать услугу под ваш стиль.
+      </p>
+    </section>
+
+    <section class="contact" id="contacts">
+      <div class="section-heading">
+        <h2>Контакты</h2>
+        <p>Будем рады видеть вас!</p>
+      </div>
+      <p>📍 Ваш город, улица Примерная, 10</p>
+      <p>📞 +7 (900) 000-00-00</p>
+      <p>🕒 Ежедневно: 10:00–20:00</p>
+      <button class="button open-booking">Оставить заявку</button>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 «Лавандовый сад» · Салон красоты
+  </footer>
+
+  <dialog id="bookingDialog">
+    <form id="bookingForm">
+      <h2>Запись в салон</h2>
+
+      <label for="clientName">Ваше имя</label>
+      <input id="clientName" name="name" type="text" placeholder="Например, Анна" required>
+
+      <label for="clientPhone">Телефон</label>
+      <input id="clientPhone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required>
+
+      <label for="service">Услуга</label>
+      <select id="service" name="service">
+        <option>Маникюр</option>
+        <option>Педикюр</option>
+        <option>Окрашивание волос</option>
+        <option>Укладка волос</option>
+        <option>Наращивание ресниц</option>
+      </select>
+
+      <div class="modal-actions">
+        <button class="close-button" type="button" id="closeDialog">Закрыть</button>
+        <button class="button" type="submit">Отправить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    // Фильтрация карточек услуг
+    const filterButtons = document.querySelectorAll(".filter-button");
+    const serviceCards = document.querySelectorAll(".service-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        const selectedCategory = button.dataset.filter;
+
+        serviceCards.forEach((card) => {
+          card.hidden =
+            selectedCategory !== "all" &&
+            card.dataset.category !== selectedCategory;
+        });
+      });
+    });
+
+    // Открытие и закрытие формы
+    const dialog = document.getElementById("bookingDialog");
+
+    document.querySelectorAll(".open-booking").forEach((button) => {
+      button.addEventListener("click", () => dialog.showModal());
+    });
+
+    document.getElementById("closeDialog").addEventListener("click", () => {
+      dialog.close();
+    });
+
+    // Демонстрационная отправка формы
+    document.getElementById("bookingForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert("Спасибо! Форма работает как демонстрация. Для отправки заявки подключите телефон или сервис форм.");
+      dialog.close();
+      event.target.reset();
+    });
+  </script>
+</body>
+</html>
